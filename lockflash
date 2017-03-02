@@ -1,0 +1,22 @@
+ #!/bin/bash
+
+
+	# read saved current status from the file  "currentflah"
+	read STATE </var/mobile/Documents/bashvariables/currentflah
+
+		#Check current status
+
+		if [ "$STATE" ==   no ]
+		then 
+
+			activator send libactivator.system.sleepbutton & activator send switch-on.com.a3tweaks.switch.flashlight & activator send libactivator.system.vibrate;  
+			sleep 0.5
+			# Update status
+			STATE=yes
+		else
+			activator send libactivator.system.sleepbutton & activator send switch-off.com.a3tweaks.switch.flashlight; sleep 0.5
+			STATE=no
+		fi 
+	# Save updated current status to file
+
+	echo "${STATE}" >/var/mobile/Documents/bashvariables/currentflah
